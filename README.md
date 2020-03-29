@@ -6,7 +6,7 @@
 
 An alternative solution is to use proxy. Until this feature is added.
 
-![tradingview-charting-library-vuejs-jsapi-example](//docs/chart.jpg)
+![tradingview-charting-library-vuejs-jsapi-example](/docs/chart.jpg)
 
 ## How to start
 
