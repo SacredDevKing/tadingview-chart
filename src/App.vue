@@ -1,5 +1,5 @@
 <template>
-  <TVChartContainer :symbol="'Bitfinex:BTC/USD'" :interval="'1D'"></TVChartContainer>
+  <TVChartContainer :symbol="'BTCUSDT'" :interval="'60'"></TVChartContainer>
 </template>
 
 <script>

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import Datafeed from './helpers/datafeed'
+  import Datafeed from './api'
 
   import { widget } from '../../public/charting_library/charting_library.min';
 

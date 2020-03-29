@@ -1,12 +1,16 @@
-# TradingView Charting Library and Vue.js Integration Example (TypeScript)
+# TradingView Charting Library, Vue.js and JSAPI Integration Example
+
+**Exchange:** Binance
+
+**NOTE**: For Chrome Browser need add params `-incognito -private chromium-browser --disable-web-security --user-data-dir="C:/Chrome dev session"`. Because [binance-api](https://www.npmjs.com/package/@marcius-capital/binance-api) makes request directly from browser to exchange. Chrome, for security reasons, prohibits making such requests. 
+
+An alternative solution is to use proxy. Until this feature is added.
 
 ## How to start
 
 1. Install dependencies `npm install`.
-1. Copy `charting_library` folder from https://github.com/tradingview/charting_library/ to `/public` folder. The earliest supported version of the Charting Library is 1.12. If you get 404 then you need to [request an access to this repository](https://www.tradingview.com/HTML5-stock-forex-bitcoin-charting-library/).
-1. Copy `charting_library.min.js` from https://github.com/tradingview/charting_library/ to `/src` folder.
-1. Copy `datafeeds` folder from https://github.com/tradingview/charting_library/ to `/public`.
-1. Run `npm run serve`. It will build the project and open a default browser with the Charting Library.
+2. Copy `charting_library` folder from https://github.com/tradingview/charting_library/ to `/public` folder. The earliest supported version of the Charting Library is 1.12. If you get 404 then you need to [request an access to this repository](https://www.tradingview.com/HTML5-stock-forex-bitcoin-charting-library/).
+3. Run `npm run serve`. It will build the project and open a default browser with the Charting Library.
 
 ## What is Charting Library
 
