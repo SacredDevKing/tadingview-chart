@@ -72,15 +72,16 @@ export default {
 
 	},
 	// get historical data for the symbol
-	getBars: async (symbolInfo, interval, from, to, onHistoryCallback, onErrorCallback, firstDataRequest) => {
+	// https://github.com/tradingview/charting_library/wiki/JS-Api#getbarssymbolinfo-resolution-periodparams-onhistorycallback-onerrorcallback
+	getBars: async (symbolInfo, interval, periodParams, onHistoryCallback, onErrorCallback) => {
 		console.log('[getBars] Method call', symbolInfo, interval)
-		console.log('[getBars] First request', firstDataRequest)
 
 		if (!checkInterval(interval)) {
 			return onErrorCallback('[getBars] Invalid interval')
 		}
 
-		const klines = await getKlines({ symbol: symbolInfo.name, interval, from, to })
+		const klines = await getKlines({ symbol: symbolInfo.name, interval, from: periodParams.from, to: periodParams.to })
+		console.log(klines)
 		if (klines.length > 0) {
 			return onHistoryCallback(klines)
 		}

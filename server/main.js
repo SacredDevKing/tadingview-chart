@@ -1,18 +1,14 @@
-// Require the framework and instantiate it
-const server = require('fastify')({
-	logger: false
-})
+const server = require('fastify')({ logger: false })
 
-const cors = require('cors')
-server.use(cors())
-
-server.register(require('fastify-http-proxy'), {
-	upstream: 'https://api.binance.com/',
-	prefix: '/', // optional
-	http2: true // optional
-})
+server
+	.register(require('fastify-cors'))
+	.register(require('fastify-http-proxy'), { // https://github.com/fastify/fastify-http-proxy
+		upstream: 'https://api.binance.com/api/v3/', //redirect to binance
+		prefix: '/', 
+		http2: true 
+	})
 
 server.listen(3000, (err, address) => {
-    if (err) throw err
-    console.log('🚀 Server ready at http://localhost:3000')
+	if (err) throw err
+	console.log(`Server ready at ${address}`)
 })

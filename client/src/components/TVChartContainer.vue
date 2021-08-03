@@ -1,5 +1,5 @@
 <template>
-  <div class="TVChartContainer" :id="containerId" />
+  <div class="TVChartContainer" :id="container" />
 </template>
 
 <script>
@@ -16,7 +16,7 @@
         default: 'D',
         type: String,
       },
-      containerId: {
+      container: {
         default: 'tv_chart_container',
         type: String,
       },
@@ -63,7 +63,7 @@
         // BEWARE: no trailing slash is expected in feed URL
         datafeed: api, // new window.Datafeeds.UDFCompatibleDatafeed(this.datafeedUrl),
         interval: this.interval,
-        container_id: this.containerId,
+        container: this.container,
         library_path: this.libraryPath,
 
         locale: 'en',

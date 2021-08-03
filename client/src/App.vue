@@ -1,5 +1,5 @@
 <template>
-  <TVChartContainer :symbol="'BTCUSDT'" :interval="'60'"></TVChartContainer>
+  <TVChartContainer symbol="BTCUSDT" interval="60"></TVChartContainer>
 </template>
 
 <script>

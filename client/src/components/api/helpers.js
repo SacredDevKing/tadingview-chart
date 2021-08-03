@@ -1,9 +1,5 @@
 import api from '@marcius-capital/binance-api'
-
-const proxy = {
-	host: 'http://localhost',
-	port: '3000'
-}
+import axios from 'axios'
 
 const intervals = {
 	'1': '1m',
@@ -26,31 +22,27 @@ const intervals = {
 	'1M': '1M',
 }
 
-export const getExchangeServerTime = () => {
-	return api.rest.time({ proxy }).then(res => res.serverTime)
-}
+export const getExchangeServerTime = () => request('/time').then(res => res.serverTime)
 
-export const getSymbols = () => {
-	return api.rest.exchangeInfo({ proxy }).then(res => res.symbols)
-}
+export const getSymbols = () => request('/exchangeInfo').then(res => res.symbols)
 
-const formatingKline = ({ openTime, open, high, low, close, volume }) => {
-	return {
-		time: openTime,
-		open,
-		high,
-		low,
-		close,
-		volume,
-	}
-}
-
+// https://binance-docs.github.io/apidocs/spot/en/#kline-candlestick-data
 export const getKlines = ({ symbol, interval, from, to }) => {
 	interval = intervals[interval] // set interval
-	return api.rest.klines({ symbol: symbol.toUpperCase(), interval, proxy })
+
+	from *= 1000
+	to *= 1000
+
+	return request('/klines', { symbol: symbol.toUpperCase(), interval, startTime: from, endTime: to })
 		.then(res => {
-			const arr = res.map(i => formatingKline(i))
-			return arr
+			return res.map(i => ({
+				time: parseFloat(i[0]),
+				open: parseFloat(i[1]),
+				high: parseFloat(i[2]),
+				low: parseFloat(i[3]),
+				close: parseFloat(i[4]),
+				volume: parseFloat(i[5]),
+			}))
 		})
 }
 
@@ -67,3 +59,42 @@ export const unsubscribeKline = (uniqueID) => {
 }
 
 export const checkInterval = (interval) => !!intervals[interval]
+
+// helpers ------------------------
+
+function formatingKline({ openTime, open, high, low, close, volume }) {
+	return {
+		time: openTime,
+		open,
+		high,
+		low,
+		close,
+		volume,
+	}
+}
+
+function request(url, params = {}) {
+	return axios({
+		baseURL: 'http://localhost:3000/',
+		method: 'get',
+		url,
+		params
+	})
+		.then(res => res.data)
+		.catch(res => console.log(res))
+}
+
+function candle(i) {
+	return {
+		o: parseFloat(i[1]),
+		h: parseFloat(i[2]),
+		l: parseFloat(i[3]),
+		c: parseFloat(i[4]),
+		v: parseFloat(i[5]),
+		ts: i[0],
+		price: parseFloat(i[4]),
+		openTime: i[0],
+		closeTime: i[6],
+		trades: i[8]
+	}
+}
